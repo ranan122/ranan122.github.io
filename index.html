@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ran You | Developmental Psychology</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #FAF8F3;
+    --ink: #1A1714;
+    --ink-muted: #5C5750;
+    --ink-faint: #9E9890;
+    --accent: #2E5E4E;
+    --accent-light: #EAF3EE;
+    --accent-mid: #5C9E82;
+    --warm-border: #E5E0D5;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--cream); color: var(--ink); font-size: 15px; line-height: 1.7; min-height: 100vh; }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250,248,243,0.93);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--warm-border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  .nav-name { font-family: var(--serif); font-size: 1.05rem; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 13px; font-weight: 500; color: var(--ink-muted); letter-spacing: 0.03em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+
+  .hero {
+    display: grid; grid-template-columns: 1fr 300px; gap: 4rem;
+    max-width: 1060px; margin: 0 auto; padding: 6rem 2rem 5rem; align-items: center;
+  }
+  .hero-eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 1.2rem; }
+  .hero h1 { font-family: var(--serif); font-size: clamp(2.4rem, 5vw, 3.6rem); line-height: 1.1; color: var(--ink); margin-bottom: 1.4rem; font-weight: 400; }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero-bio { font-size: 15.5px; color: var(--ink-muted); max-width: 520px; line-height: 1.85; margin-bottom: 2rem; }
+  .hero-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary { display: inline-flex; align-items: center; gap: 6px; background: var(--accent); color: #fff; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.02em; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: #245049; transform: translateY(-1px); }
+  .btn-outline { display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--warm-border); color: var(--ink-muted); padding: 10px 20px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.02em; transition: border-color 0.2s, color 0.2s; background: transparent; }
+  .btn-outline:hover { border-color: var(--accent-mid); color: var(--accent); }
+
+  .hero-card { background: #fff; border: 1px solid var(--warm-border); border-radius: 16px; overflow: hidden; }
+  .photo-placeholder { width: 100%; aspect-ratio: 4/5; background: #D4E8DE; display: flex; align-items: center; justify-content: center; }
+  .photo-initials { font-family: var(--serif); font-size: 5rem; color: rgba(46,94,78,0.3); }
+  .hero-card-footer { padding: 1rem 1.25rem; border-top: 1px solid var(--warm-border); }
+  .hero-card-footer .label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 4px; }
+  .hero-card-footer .value { font-size: 13.5px; color: var(--ink-muted); }
+
+  section { padding: 5rem 2rem; }
+  .inner { max-width: 1060px; margin: 0 auto; }
+  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 0.6rem; }
+  .section-title { font-family: var(--serif); font-size: 2rem; font-weight: 400; color: var(--ink); margin-bottom: 2.5rem; line-height: 1.25; }
+
+  .about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 4rem; align-items: start; }
+  .about-text p { color: var(--ink-muted); margin-bottom: 1.2rem; font-size: 15px; line-height: 1.85; }
+  .interests-list { list-style: none; }
+  .interests-list li { display: flex; align-items: flex-start; gap: 10px; padding: 0.7rem 0; border-bottom: 1px solid var(--warm-border); font-size: 14px; color: var(--ink-muted); }
+  .interests-list li:last-child { border-bottom: none; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-mid); flex-shrink: 0; margin-top: 8px; }
+
+  .research-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .research-card { background: #fff; border: 1px solid var(--warm-border); border-radius: 12px; padding: 1.6rem; transition: border-color 0.2s, transform 0.2s; }
+  .research-card:hover { border-color: var(--accent-mid); transform: translateY(-3px); }
+  .research-card .r-icon { width: 38px; height: 38px; border-radius: 10px; background: var(--accent-light); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+  .research-card .r-icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .research-card h3 { font-size: 14.5px; font-weight: 500; color: var(--ink); margin-bottom: 0.5rem; }
+  .research-card p { font-size: 13px; color: var(--ink-muted); line-height: 1.7; }
+  .research-tag { display: inline-block; font-size: 10.5px; font-weight: 500; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 20px; background: var(--accent-light); color: var(--accent); margin-top: 10px; }
+
+  .pubs-list { display: flex; flex-direction: column; gap: 1.25rem; }
+  .pub-item { background: #fff; border: 1px solid var(--warm-border); border-radius: 10px; padding: 1.4rem 1.6rem; display: grid; grid-template-columns: auto 1fr; gap: 1.2rem; align-items: start; }
+  .pub-year { font-size: 12px; font-weight: 500; color: var(--accent-mid); padding-top: 3px; white-space: nowrap; }
+  .pub-title { font-size: 14.5px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+  .pub-meta { font-size: 13px; color: var(--ink-faint); }
+  .pub-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .tag { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; background: var(--accent-light); color: var(--accent); }
+
+  .methods-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
+  .method-pill { background: #fff; border: 1px solid var(--warm-border); border-radius: 8px; padding: 0.9rem 1.1rem; font-size: 13.5px; color: var(--ink-muted); display: flex; align-items: center; gap: 8px; transition: border-color 0.2s; }
+  .method-pill:hover { border-color: var(--accent-mid); }
+  .method-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-mid); flex-shrink: 0; }
+
+  .cv-strip { background: var(--accent); color: #fff; }
+  .cv-strip .inner { display: flex; align-items: center; justify-content: space-between; padding-top: 3rem; padding-bottom: 3rem; }
+  .cv-strip h2 { font-family: var(--serif); font-size: 1.8rem; font-weight: 400; margin-bottom: 0.4rem; }
+  .cv-strip p { color: rgba(255,255,255,0.7); font-size: 14px; }
+  .btn-white { display: inline-flex; align-items: center; gap: 6px; background: #fff; color: var(--accent); padding: 11px 22px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 500; white-space: nowrap; transition: transform 0.15s; flex-shrink: 0; }
+  .btn-white:hover { transform: translateY(-1px); }
+
+  .contact-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: start; }
+  .contact-info { color: var(--ink-muted); font-size: 15px; line-height: 1.8; }
+  .contact-links { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.6rem; }
+  .contact-link { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--ink-muted); text-decoration: none; }
+  .contact-link:hover { color: var(--accent); }
+  .contact-link svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; flex-shrink: 0; }
+
+  .status-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-light); border: 1px solid rgba(46,94,78,0.2); color: var(--accent); font-size: 12px; font-weight: 500; padding: 5px 12px; border-radius: 20px; margin-bottom: 1.5rem; }
+  .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  .section-divider { border: none; border-top: 1px solid var(--warm-border); max-width: 1060px; margin: 0 auto; }
+  footer { text-align: center; padding: 2rem; font-size: 12.5px; color: var(--ink-faint); border-top: 1px solid var(--warm-border); }
+
+  .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 800px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-card { display: none; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .research-grid { grid-template-columns: 1fr 1fr; }
+    .cv-strip .inner { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+  }
+  @media (max-width: 560px) {
+    .research-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-name">Ran You</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ======================== HERO ======================== -->
+<div class="hero">
+  <div class="fade-in">
+    <p class="hero-eyebrow">Developmental Psychology &nbsp;·&nbsp; University of Pittsburgh</p>
+    <h1>Ran You<br><em>Where child development meets AI</em></h1>
+    <p class="hero-bio">
+      I am a PhD candidate studying infant motor and language development, parent-child interaction, and how insights from developmental psychology can inform safer, more effective AI systems. My work bridges human development and computation — asking both how children grow and how that knowledge can build better technology.
+    </p>
+    <div class="hero-links">
+      <a href="mailto:ranan122@pitt.edu" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+        Get in touch
+      </a>
+      <a href="https://github.com/ranan122" class="btn-outline" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub
+      </a>
+      <!-- TO UPDATE: Replace href="#" with the path to your CV PDF, e.g. href="cv.pdf" -->
+      <a href="#" class="btn-outline">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Curriculum Vitae
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-card fade-in" style="transition-delay:0.15s;">
+    <!-- TO UPDATE: Replace the div.photo-placeholder block below with:
+         <img src="photo.jpg" alt="Ran You" style="width:100%; aspect-ratio:4/5; object-fit:cover;">
+         after uploading your photo to the repository -->
+    <div class="photo-placeholder">
+      <span class="photo-initials">RY</span>
+    </div>
+    <div class="hero-card-footer">
+      <div class="label">Advisor</div>
+      <div class="value">Dr. Klaus Libertus<br>University of Pittsburgh</div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ======================== ABOUT ======================== -->
+<section id="about">
+  <div class="inner">
+    <div class="about-grid fade-in">
+      <div class="about-text">
+        <p class="section-label">About</p>
+        <h2 class="section-title">Studying how children grow — and what that tells us about <em>intelligence</em></h2>
+        <!-- TO UPDATE: Edit the paragraphs below to reflect your own words -->
+        <p>
+          My research begins with a deceptively simple question: how do infants learn to move, communicate, and connect with the people around them? Working with Dr. Klaus Libertus at the University of Pittsburgh, I study the early trajectories of motor and language development, and how parent-child interaction shapes those trajectories.
+        </p>
+        <p>
+          Alongside this empirical work, I am deeply interested in what developmental science can contribute to artificial intelligence. Children are the most remarkable learners we know — understanding how they develop offers a blueprint for building AI systems that are safer, more adaptive, and more aligned with human values.
+        </p>
+        <p>
+          I am actively seeking postdoctoral opportunities at the intersection of developmental psychology, cognitive science, and AI research.
+        </p>
+      </div>
+      <div>
+        <p class="section-label" style="margin-bottom:0.8rem;">Research interests</p>
+        <ul class="interests-list">
+          <li><span class="dot"></span>Infant motor and language development</li>
+          <li><span class="dot"></span>Parent-child interaction</li>
+          <li><span class="dot"></span>AI literacy and education</li>
+          <li><span class="dot"></span>Developmental knowledge in AI systems</li>
+          <li><span class="dot"></span>AI safety and ethics for children</li>
+          <li><span class="dot"></span>AI tools for psychological research</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ======================== RESEARCH ======================== -->
+<section id="research">
+  <div class="inner">
+    <p class="section-label">Research</p>
+    <h2 class="section-title">Six areas of focus</h2>
+    <div class="research-grid fade-in">
+
+      <div class="research-card">
+        <div class="r-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        </div>
+        <h3>Infant motor and language development</h3>
+        <p>Tracking how infants acquire foundational motor skills and early language, and how development in one domain fuels progress in the other.</p>
+        <span class="research-tag">Core empirical work</span>
+      </div>
+
+      <div class="research-card">
+        <div class="r-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Parent-child interaction</h3>
+        <p>Examining how caregiver responsiveness, joint attention, and shared play shape infant learning and developmental outcomes.</p>
+        <span class="research-tag">Social development</span>
+      </div>
+
+      <div class="research-card">
+        <div class="r-icon">
+          <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <h3>AI literacy and education</h3>
+        <p>Understanding how children and caregivers think about AI, and how to build age-appropriate frameworks for learning about intelligent systems.</p>
+        <span class="research-tag">Education and society</span>
+      </div>
+
+      <div class="research-card">
+        <div class="r-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </div>
+        <h3>Developmental knowledge in AI and robotics</h3>
+        <p>Applying what we know about how children learn — incrementally, embodied, through interaction — to the design of more capable and human-aligned AI systems.</p>
+        <span class="research-tag">Translational science</span>
+      </div>
+
+      <div class="research-card">
+        <div class="r-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>AI safety and ethics for children</h3>
+        <p>Investigating the unique risks that AI systems pose to young users, and developing principled frameworks for child-centered AI design and governance.</p>
+        <span class="research-tag">Safety and policy</span>
+      </div>
+
+      <div class="research-card">
+        <div class="r-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>AI for psychological science</h3>
+        <p>Exploring how large language models, computer vision, and machine learning methods can accelerate discovery in developmental and clinical psychology research.</p>
+        <span class="research-tag">Methodology</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ======================== METHODS ======================== -->
+<section style="padding: 3rem 2rem;">
+  <div class="inner">
+    <p class="section-label" style="margin-bottom:1rem;">Methods and tools</p>
+    <!-- TO UPDATE: Add or remove method-pill items as needed -->
+    <div class="methods-grid fade-in">
+      <div class="method-pill"><span class="method-dot"></span>Spline regression</div>
+      <div class="method-pill"><span class="method-dot"></span>Mixed-effects models</div>
+      <div class="method-pill"><span class="method-dot"></span>Longitudinal modeling</div>
+      <div class="method-pill"><span class="method-dot"></span>Growth curve analysis</div>
+      <div class="method-pill"><span class="method-dot"></span>R / lme4 / mgcv</div>
+      <div class="method-pill"><span class="method-dot"></span>Motor assessments</div>
+      <div class="method-pill"><span class="method-dot"></span>Infant video coding</div>
+      <div class="method-pill"><span class="method-dot"></span>Machine learning</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ======================== PUBLICATIONS ======================== -->
+<section id="publications">
+  <div class="inner">
+    <p class="section-label">Selected publications</p>
+    <h2 class="section-title">Recent work</h2>
+    <!-- TO UPDATE: Replace placeholder text with your real paper titles, authors, and journals.
+         Copy and paste more pub-item blocks to add more papers. -->
+    <div class="pubs-list fade-in">
+
+      <div class="pub-item">
+        <div class="pub-year">2024</div>
+        <div>
+          <div class="pub-title">Add your most recent paper title here</div>
+          <div class="pub-meta">You, R., Libertus, K., &amp; [co-authors] · <em>Journal name</em></div>
+          <div class="pub-tags"><span class="tag">Motor development</span><span class="tag">Longitudinal</span></div>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-year">2023</div>
+        <div>
+          <div class="pub-title">Add your second paper title here</div>
+          <div class="pub-meta">You, R., &amp; [co-authors] · <em>Journal name</em></div>
+          <div class="pub-tags"><span class="tag">Trajectory modeling</span><span class="tag">Spline models</span></div>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-year">2022</div>
+        <div>
+          <div class="pub-title">Add your third paper title here</div>
+          <div class="pub-meta">You, R., &amp; [co-authors] · <em>Journal name</em></div>
+          <div class="pub-tags"><span class="tag">Infant assessment</span><span class="tag">Early motor</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ======================== CV STRIP ======================== -->
+<section class="cv-strip" style="padding:0;">
+  <div class="inner">
+    <div>
+      <h2>Curriculum Vitae</h2>
+      <p>Full list of publications, teaching, and academic service</p>
+    </div>
+    <!-- TO UPDATE: Replace href="#" with href="cv.pdf" after uploading your CV to the repo -->
+    <a href="#" class="btn-white">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download CV
+    </a>
+  </div>
+</section>
+
+<!-- ======================== CONTACT ======================== -->
+<section id="contact">
+  <div class="inner">
+    <div class="contact-grid fade-in">
+      <div>
+        <p class="section-label">Contact</p>
+        <h2 class="section-title">Let's connect</h2>
+        <div class="contact-info">
+          <div class="status-badge"><span class="pulse"></span>Open to postdoctoral opportunities</div>
+          <p>I am actively looking for postdoctoral positions that bridge developmental psychology, cognitive science, and AI research. If you work in a related area, I would love to connect.</p>
+          <div class="contact-links">
+            <a href="mailto:ranan122@pitt.edu" class="contact-link">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+              ranan122@pitt.edu
+            </a>
+            <a href="https://github.com/ranan122" class="contact-link" target="_blank">
+              <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              github.com/ranan122
+            </a>
+            <!-- TO UPDATE: Add your Google Scholar, LinkedIn, or Twitter/X links here using the same contact-link format -->
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="section-label" style="margin-bottom:1rem;">Academic home</p>
+        <div style="background:#fff; border: 1px solid var(--warm-border); border-radius: 12px; padding: 1.4rem;">
+          <p style="font-weight: 500; font-size: 14.5px; color: var(--ink); margin-bottom: 4px;">Department of Psychology</p>
+          <p style="font-size: 13.5px; color: var(--ink-muted);">University of Pittsburgh</p>
+          <div style="border-top: 1px solid var(--warm-border); margin: 1rem 0; padding-top: 1rem;">
+            <p style="font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 4px;">Advisor</p>
+            <p style="font-size: 14px; font-weight: 500; color: var(--ink);">Dr. Klaus Libertus</p>
+            <p style="font-size: 13px; color: var(--ink-muted);">Infant Development Lab</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; 2025 Ran You &nbsp;·&nbsp; Built with GitHub Pages
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
